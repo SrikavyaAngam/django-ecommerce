@@ -368,6 +368,76 @@ Admin Dashboard
 
 ```
 
+\## 📸 Screenshots
+
+
+
+\### 🏠 Home Page
+
+!\[Home Page](screenshots/home.png)
+
+
+
+\### 🛍️ Products
+
+!\[Products](screenshots/products.png)
+
+
+
+\### 🔐 Login
+
+!\[Login](screenshots/login.png)
+
+
+
+\### 📝 Signup
+
+!\[Signup](screenshots/signup.png)
+
+
+
+\### 🛒 Shopping Cart
+
+!\[Cart](screenshots/cart.png)
+
+
+
+\### 📦 Orders
+
+!\[Orders](screenshots/orders.png)
+
+
+
+\### ❤️ Wishlist
+
+!\[Wishlist](screenshots/wishlist.png)
+
+
+
+\### 👤 Customer Dashboard
+
+!\[Customer Dashboard](screenshots/customer%20dashboard.png)
+
+
+
+\### 👨‍💼 Admin Dashboard
+
+!\[Admin Dashboard](screenshots/admin%20dashboard.png)
+
+
+
+\### ✏️ Update Profile
+
+!\[Update Profile](screenshots/update%20profile.png)
+
+
+
+\### ℹ️ About Page
+
+!\[About](screenshots/about.png)
+
+
+
 
 
 \## 👩‍💻 Author
