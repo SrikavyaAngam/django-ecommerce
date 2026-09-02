@@ -1,0 +1,509 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+
+    background: #f5f7ff;
+
+    color: #172033;
+}
+
+
+
+/* NAVBAR */
+
+.navbar {
+    min-height: 68px;
+
+    padding: 0 7%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: #111827;
+}
+
+
+.logo {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 23px;
+
+    font-weight: bold;
+}
+
+
+.navbar nav {
+    display: flex;
+
+    gap: 25px;
+}
+
+
+.navbar nav a {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 14px;
+}
+
+
+
+/* CHECKOUT */
+
+.checkout-section {
+    padding: 50px 7%;
+}
+
+
+.checkout-container {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 1.5fr 1fr;
+
+    gap: 30px;
+}
+
+
+
+/* FORM */
+
+.checkout-form {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    border: 1px solid #e5e7eb;
+}
+
+
+.checkout-form h2 {
+    font-size: 26px;
+
+    margin-bottom: 5px;
+}
+
+
+.subtitle {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #4f46e5;
+}
+
+
+.address-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+
+
+/* PAYMENT */
+
+.payment-title {
+    font-size: 17px;
+
+    margin: 25px 0 12px;
+}
+
+
+.payment-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.payment-option {
+    padding: 12px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+
+.payment-option input {
+    margin-right: 8px;
+}
+
+
+
+/* PLACE ORDER */
+
+.place-order-btn {
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 13px;
+
+    background: #4f46e5;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.place-order-btn:hover {
+    background: #3730a3;
+}
+
+
+
+/* ORDER SUMMARY */
+
+.order-summary {
+    height: fit-content;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    border: 1px solid #e5e7eb;
+}
+
+
+.order-summary h2 {
+    font-size: 21px;
+
+    margin-bottom: 20px;
+}
+
+
+.summary-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+
+.summary-item h4 {
+    font-size: 14px;
+
+    margin-bottom: 5px;
+}
+
+
+.summary-item p {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+.summary-item strong {
+    font-size: 14px;
+}
+
+
+.summary-line {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 15px;
+
+    font-size: 14px;
+}
+
+
+.summary-line strong {
+    color: #4f46e5;
+}
+
+
+.order-summary hr {
+    margin: 20px 0;
+
+    border: none;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+
+.grand-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 18px;
+}
+
+
+.grand-total strong {
+    color: #4f46e5;
+}
+
+
+
+/* FOOTER */
+
+footer {
+    margin-top: 30px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    background: #111827;
+
+    color: white;
+
+    font-size: 13px;
+}
+
+
+
+/* MOBILE */
+
+@media (max-width: 750px) {
+
+    .navbar {
+        padding: 18px 20px;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .checkout-section {
+        padding: 30px 20px;
+    }
+
+
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+
+
+    .address-row {
+        grid-template-columns: 1fr;
+    }
+
+}
+/*================================
+   ORDER SUCCESS BOX
+================================ */
+
+.order-success-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background: #f4f6f9;
+}
+
+.order-success-card {
+    width: 500px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Success Tick */
+
+.success-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #e8f7ed;
+    color: #20a447;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    font-weight: bold;
+}
+
+/* Heading */
+
+.order-success-card h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+/* Text */
+
+.order-success-card p {
+    color: #555;
+    font-size: 15px;
+    margin: 8px 0;
+}
+
+/* Order Details Box */
+
+.order-info {
+    margin: 25px 0;
+    padding: 18px 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    text-align: left;
+}
+
+.order-info p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.order-info strong {
+    color: #111;
+}
+
+/* Email Box */
+
+.email-message {
+    padding: 12px 15px;
+    border-radius: 6px;
+    background: #f1f6ff;
+    border: 1px solid #d6e4ff;
+    color: #2563eb !important;
+}
+
+/* Buttons */
+
+.success-buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.success-buttons a {
+    padding: 11px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Continue Shopping */
+
+.btn-shop {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-shop:hover {
+    background: #1d4ed8;
+}
+
+/* View Orders */
+
+.btn-orders {
+    background: #eee;
+    color: #333;
+}
+
+.btn-orders:hover {
+    background: #ddd;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .order-success-card {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .success-buttons {
+        flex-direction: column;
+    }
+
+    .success-buttons a {
+        width: 100%;
+    }
+}

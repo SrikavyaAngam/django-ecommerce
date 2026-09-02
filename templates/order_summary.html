@@ -1,0 +1,400 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Orders</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/order_summary.css' %}">
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}" class="logo">
+        🛒 E-Shop
+    </a>
+
+    <nav>
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'products' %}">
+            Products
+        </a>
+
+        <a href="{% url 'order_summary' %}" class="active">
+            My Orders
+        </a>
+
+        {% if user.is_staff %}
+            <a href="{% url 'admin_dashboard' %}">
+                Dashboard
+            </a>
+        {% endif %}
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<main class="orders-container">
+
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <span>ORDERS</span>
+
+        <h1>
+            Your Orders
+        </h1>
+
+        <p>
+            View and manage your orders.
+        </p>
+
+    </div>
+
+
+
+    {% if orders %}
+
+
+        <div class="orders-list">
+
+
+            {% for order in orders %}
+
+
+                <div class="order-card">
+
+
+                    <!-- ================= ORDER HEADER ================= -->
+
+                    <div class="order-header">
+
+                        <div>
+
+                            <h2>
+                                Order #{{ order.id }}
+                            </h2>
+
+                            <p>
+                                Ordered on:
+                                {{ order.created_at|date:"d M Y, h:i A" }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="order-status
+                            {% if order.status == 'Placed' %}
+                                status-placed
+                            {% elif order.status == 'Cancelled' %}
+                                status-cancelled
+                            {% elif order.status == 'Delivered' %}
+                                status-delivered
+                            {% elif order.status == 'Return Requested' %}
+                                status-return
+                            {% endif %}
+                        ">
+
+                            {{ order.status }}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- ================= CUSTOMER DETAILS ================= -->
+
+                    <div class="customer-details">
+
+                        <p>
+                            <strong>Customer:</strong>
+                            {{ order.name }}
+                        </p>
+
+                        <p>
+                            <strong>Email:</strong>
+                            {{ order.email }}
+                        </p>
+
+                        <p>
+                            <strong>Phone:</strong>
+                            {{ order.phone }}
+                        </p>
+
+                        <p>
+                            <strong>Delivery Address:</strong>
+                            {{ order.address }},
+                            {{ order.city }},
+                            {{ order.state }}
+                            - {{ order.pincode }}
+                        </p>
+
+                    </div>
+
+
+
+                    <!-- ================= PRODUCTS ================= -->
+
+                    <div class="order-products">
+
+
+                        {% for item in order.order_items.all %}
+
+
+                            <div class="product-item">
+
+
+                                <!-- PRODUCT IMAGE -->
+
+                                <div class="product-image">
+
+                                    {% if item.product.image %}
+
+                                        <img
+                                            src="{{ item.product.image.url }}"
+                                            alt="{{ item.product.name }}"
+                                        >
+
+                                    {% else %}
+
+                                        <div class="no-image">
+                                            📦
+                                        </div>
+
+                                    {% endif %}
+
+                                </div>
+
+
+
+                                <!-- PRODUCT DETAILS -->
+
+                                <div class="product-details">
+
+                                    <h3>
+                                        {{ item.product.name }}
+                                    </h3>
+
+                                    <p>
+                                        Category:
+                                        {{ item.product.get_category_display }}
+                                    </p>
+
+                                    <p>
+                                        Quantity:
+                                        {{ item.quantity }}
+                                    </p>
+
+                                    <p>
+                                        Price:
+                                        ₹{{ item.price }}
+                                    </p>
+
+                                </div>
+
+
+
+                                <!-- ITEM TOTAL -->
+
+                                <div class="item-total">
+
+                                    ₹{{ item.get_total }}
+
+                                </div>
+
+
+                            </div>
+
+
+                        {% empty %}
+
+                            <p class="no-items">
+                                No product details available.
+                            </p>
+
+                        {% endfor %}
+
+
+                    </div>
+
+
+
+                    <!-- ================= ORDER FOOTER ================= -->
+
+                    <div class="order-footer">
+
+
+                        <!-- TOTAL -->
+
+                        <div class="total">
+
+                            <span>
+                                Total Amount
+                            </span>
+
+                            <strong>
+                                ₹{{ order.total_amount }}
+                            </strong>
+
+                        </div>
+
+
+
+                        <!-- ================= ACTION BUTTONS ================= -->
+
+                        <div class="order-actions">
+
+
+                            <!-- CANCEL ORDER -->
+
+                            {% if order.status == "Placed" %}
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'cancel_order' order.id %}"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="cancel-btn"
+                                        onclick="return confirm('Are you sure you want to cancel this order?');"
+                                    >
+
+                                        ❌ Cancel Order
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+
+
+                            <!-- RETURN ORDER -->
+
+                            {% if order.status == "Delivered" %}
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'return_order' order.id %}"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="return-btn"
+                                        onclick="return confirm('Do you want to request a return for this order?');"
+                                    >
+
+                                        ↩️ Return Order
+
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+
+
+                            <!-- CANCELLED MESSAGE -->
+
+                            {% if order.status == "Cancelled" %}
+
+                                <span class="cancelled-message">
+                                    ❌ Order Cancelled
+                                </span>
+
+                            {% endif %}
+
+
+
+                            <!-- RETURN REQUESTED MESSAGE -->
+
+                            {% if order.status == "Return Requested" %}
+
+                                <span class="return-message">
+                                    ↩️ Return Requested
+                                </span>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    {% else %}
+
+
+        <!-- ================= NO ORDERS ================= -->
+
+        <div class="no-orders">
+
+            <div class="empty-icon">
+                📦
+            </div>
+
+            <h2>
+                No Orders Found
+            </h2>
+
+            <p>
+                You have not placed any orders yet.
+            </p>
+
+            <a href="{% url 'products' %}">
+                Continue Shopping
+            </a>
+
+        </div>
+
+
+    {% endif %}
+
+
+</main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Orders</title>
+</head>
+
+<body>
+
+    <h1>Orders of {{ customer.username }}</h1>
+
+    {% if orders %}
+        {% for order in orders %}
+
+            <div>
+                <h3>Order #{{ order.id }}</h3>
+
+                <p>
+                    <strong>Name:</strong>
+                    {{ order.name }}
+                </p>
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ order.email }}
+                </p>
+
+                <p>
+                    <strong>Phone:</strong>
+                    {{ order.phone }}
+                </p>
+
+                <p>
+                    <strong>Address:</strong>
+                    {{ order.address }},
+                    {{ order.city }},
+                    {{ order.state }}
+                    - {{ order.pincode }}
+                </p>
+
+                <p>
+                    <strong>Total:</strong>
+                    ₹{{ order.total_amount }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ order.status }}
+                </p>
+
+                <p>
+                    <strong>Order Date:</strong>
+                    {{ order.created_at }}
+                </p>
+
+                <hr>
+            </div>
+
+        {% endfor %}
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+
+    <a href="{% url 'admin_dashboard' %}">
+        Back to Dashboard
+    </a>
+
+</body>
+</html>

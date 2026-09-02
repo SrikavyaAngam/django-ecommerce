@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Order Successful</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/checkout.css' %}">
+
+</head>
+
+<body>
+
+<div class="order-success-page">
+
+    <div class="order-success-card">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h1>Order Placed Successfully!</h1>
+
+        <p>Thank you for shopping with E-Shop.</p>
+
+        <div class="order-info">
+            <p><strong>Order ID:</strong> #{{ order.id }}</p>
+            <p><strong>Total Amount:</strong> ₹{{ order.total_amount }}</p>
+            <p><strong>Status:</strong> {{ order.status }}</p>
+        </div>
+
+        <p class="email-message">
+            📧 A confirmation email has been sent to your registered email address.
+        </p>
+
+        <div class="success-buttons">
+            <a href="/" class="btn-shop">Continue Shopping</a>
+            <a href="/orders/" class="btn-orders">View My Orders</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

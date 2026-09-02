@@ -1,0 +1,350 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Cart</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/cart.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}" class="logo">
+        🛒 E-Shop
+    </a>
+
+    <nav>
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+
+        <a href="{% url 'about' %}">
+            About
+        </a>
+
+        {% if user.is_authenticated %}
+
+            <a href="{% url 'dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'logout' %}">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= CART ================= -->
+
+<main class="cart-page">
+
+
+    <div class="cart-heading">
+
+        <span>
+            🛒 SHOPPING CART
+        </span>
+
+        <h1>
+            Your Cart
+        </h1>
+
+        <p>
+            Review your products before checkout.
+        </p>
+
+    </div>
+
+
+
+    {% if cart_items %}
+
+    <div class="cart-layout">
+
+
+        <!-- ================= CART PRODUCTS ================= -->
+
+        <section class="cart-products">
+
+
+            {% for item in cart_items %}
+
+            <div class="cart-item">
+
+
+                <!-- PRODUCT IMAGE -->
+
+                <div class="cart-image">
+
+                    {% if item.product.image %}
+
+                        <img
+                            src="{{ item.product.image.url }}"
+                            alt="{{ item.product.name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="no-image">
+                            📦
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- PRODUCT DETAILS -->
+
+                <div class="cart-details">
+
+                    <h2>
+                        {{ item.product.name }}
+                    </h2>
+
+                    <p class="category">
+                        {{ item.product.category }}
+                    </p>
+
+                    <p class="description">
+                        {{ item.product.description }}
+                    </p>
+
+                    <h3>
+                        ₹{{ item.product.price }}
+                    </h3>
+
+                </div>
+
+
+
+                <!-- QUANTITY -->
+
+                <div class="quantity-section">
+
+                    <span>
+                        Quantity
+                    </span>
+
+                    <div class="quantity-control">
+
+                        <a href="{% url 'decrease_quantity' item.product.id %}"
+                           class="quantity-btn">
+                            −
+                        </a>
+
+                        <span class="quantity">
+                            {{ item.quantity }}
+                        </span>
+
+                        <a href="{% url 'increase_quantity' item.product.id %}"
+                           class="quantity-btn">
+                            +
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOTAL -->
+
+                <div class="item-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ₹{{ item.total }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- REMOVE -->
+
+                <div class="remove-section">
+
+                    <a href="{% url 'remove_from_cart' item.product.id %}"
+                       class="remove-btn">
+
+                        🗑 Remove
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+            {% endfor %}
+
+
+        </section>
+
+
+
+        <!-- ================= CART SUMMARY ================= -->
+
+        <aside class="cart-summary">
+
+            <h2>
+                Cart Summary
+            </h2>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Items
+                </span>
+
+                <strong>
+                    {{ cart_items|length }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Subtotal
+                </span>
+
+                <strong>
+                    ₹{{ grand_total }}
+                </strong>
+
+            </div>
+
+
+            <div class="summary-line">
+
+                <span>
+                    Delivery
+                </span>
+
+                <strong>
+                    FREE
+                </strong>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="grand-total">
+
+                <span>
+                    Total
+                </span>
+
+                <strong>
+                    ₹{{ grand_total }}
+                </strong>
+
+            </div>
+
+
+            <a href="{% url 'checkout' %}"
+               class="checkout-btn">
+
+                Proceed to Checkout →
+
+            </a>
+
+
+  <a href="{% url 'home' %}" class="continue-shopping">
+    Continue Shopping
+</a>
+
+        </aside>
+
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- ================= EMPTY CART ================= -->
+
+    <section class="empty-cart">
+
+        <div class="empty-icon">
+            🛒
+        </div>
+
+        <h2>
+            Your Cart is Empty
+        </h2>
+
+        <p>
+            You haven't added any products to your cart yet.
+        </p>
+
+        <a href="{% url 'home' %}"
+           class="shop-btn">
+
+            🛍️ Browse Products
+
+        </a>
+
+    </section>
+
+
+    {% endif %}
+
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 E-Shop | All Rights Reserved
+    </p>
+
+</footer>
+
+
+</body>
+</html>

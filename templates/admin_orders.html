@@ -1,0 +1,210 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | All Orders</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/admin_orders.css' %}">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <a href="{% url 'admin_dashboard' %}" class="logo">
+        E-Shop Admin
+    </a>
+
+    <nav>
+
+        <a href="{% url 'admin_dashboard' %}">
+            Dashboard
+        </a>
+
+        <a href="{% url 'admin_orders' %}" class="active">
+            Orders
+        </a>
+
+        <a href="{% url 'logout' %}" class="logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- PAGE -->
+
+<main class="orders-container">
+
+    <div class="page-header">
+
+        <div>
+            <span>ADMIN PANEL</span>
+
+            <h1>All Orders</h1>
+
+            <p>
+                View and manage all customer orders
+            </p>
+        </div>
+
+        <div class="order-count">
+            {{ orders|length }} Orders
+        </div>
+
+    </div>
+
+
+    <!-- ORDERS -->
+
+    {% for order in orders %}
+
+    <div class="order-card">
+
+        <!-- ORDER HEADER -->
+
+        <div class="order-header">
+
+            <div>
+                <h2>
+                    Order #{{ order.id }}
+                </h2>
+
+                <p>
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+                </p>
+            </div>
+
+            <span class="order-status">
+                {{ order.status }}
+            </span>
+
+        </div>
+
+
+        <!-- CUSTOMER -->
+
+        <div class="customer-info">
+
+            <div>
+                <small>Customer</small>
+                <strong>{{ order.name }}</strong>
+            </div>
+
+            <div>
+                <small>Email</small>
+                <strong>{{ order.email }}</strong>
+            </div>
+
+            <div>
+                <small>Phone</small>
+                <strong>{{ order.phone }}</strong>
+            </div>
+
+            <div>
+                <small>Total Amount</small>
+                <strong>₹{{ order.total_amount }}</strong>
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+
+        <div class="products-section">
+
+            <h3>Products</h3>
+
+            {% for item in order.order_items.all %}
+
+            <div class="product-row">
+
+                {% if item.product.image %}
+
+                    <img src="{{ item.product.image.url }}"
+                         alt="{{ item.product.name }}">
+
+                {% endif %}
+
+                <div class="product-details">
+
+                    <h4>
+                        {{ item.product.name }}
+                    </h4>
+
+                    <p>
+                        Quantity: {{ item.quantity }}
+                    </p>
+
+                    <p>
+                        Price: ₹{{ item.price }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="address">
+
+            <strong>Delivery Address</strong>
+
+            <p>
+                {{ order.address }},
+                {{ order.city }},
+                {{ order.state }} -
+                {{ order.pincode }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="no-orders">
+
+        <h2>No Orders Found</h2>
+
+        <p>
+            No customer orders have been placed yet.
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 E-Shop Admin Dashboard
+    </p>
+
+</footer>
+
+</body>
+
+</html>

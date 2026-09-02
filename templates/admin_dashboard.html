@@ -1,0 +1,433 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/admin_dashboard.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- =====================================
+SIDEBAR
+===================================== -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        🛒 <span>E-Shop</span>
+
+    </div>
+
+
+    <div class="admin-profile">
+
+        <div class="admin-avatar">
+
+            {{ request.user.username|first|upper }}
+
+        </div>
+
+        <div>
+
+            <h4>
+                {{ request.user.username }}
+            </h4>
+
+            <span>
+                Administrator
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <p class="menu-title">
+        MAIN MENU
+    </p>
+
+
+    <nav class="sidebar-menu">
+
+        <a href="{% url 'admin_dashboard' %}"
+           class="active">
+
+            📊 Dashboard
+
+        </a>
+
+
+      
+
+
+        <a href="{% url 'admin_orders' %}">
+
+            🛍 Orders
+
+        </a>
+
+
+        <a href="#customers">
+
+            👥 Customers
+
+        </a>
+
+
+    
+
+        <a href="{% url 'home' %}"
+           target="_blank">
+
+            🏪 View Store
+
+        </a>
+
+
+       <a href="{% url 'update_profile' %}">
+
+    👤 Update Profile
+
+</a>
+
+
+<a href="#settings">
+
+    ⚙ Settings
+
+</a>
+
+        <a href="{% url 'logout' %}"
+           class="logout-link">
+
+            🚪 Logout
+
+        </a>
+
+    </nav>
+
+
+</aside>
+
+
+<!-- =====================================
+MAIN CONTENT
+===================================== -->
+
+<main class="main-content">
+
+
+    <!-- TOP BAR -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Welcome back, {{ request.user.username }} 👋
+            </p>
+
+        </div>
+
+
+        <div class="topbar-right">
+
+            <a href="{% url 'add_product' %}"
+               class="add-product-btn">
+
+                + Add Product
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+STATISTICS
+===================================== -->
+
+    <section class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📦
+            </div>
+
+            <div>
+
+                <p>
+                    Total Products
+                </p>
+
+                <h2>
+                    {{ total_products }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🛍
+            </div>
+
+            <div>
+
+                <p>
+                    Total Orders
+                </p>
+
+                <h2>
+                    {{ total_orders }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <div>
+
+                <p>
+                    Total Customers
+                </p>
+
+                <h2>
+                    {{ total_customers }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💰
+            </div>
+
+            <div>
+
+                <p>
+                    Total Sales
+                </p>
+
+                <h2>
+                    ₹{{ total_sales }}
+                </h2>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+
+   
+
+
+    <!-- =====================================
+CUSTOMERS
+===================================== -->
+
+    <section class="dashboard-section"
+             id="customers">
+
+
+        <div class="section-header">
+
+            <h2>
+                👥 Customers
+            </h2>
+
+
+            <form method="GET"
+                  class="search-form">
+
+
+                <input type="text"
+                       name="search"
+                       placeholder="Search customers..."
+                       value="{{ search_query }}">
+
+
+                <button type="submit">
+
+                    Search
+
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+
+
+        <div class="table-container">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Name
+                        </th>
+
+                        <th>
+                            Username
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Orders
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody>
+
+
+                    {% for customer in customers %}
+
+
+                    <tr>
+
+                        <td>
+
+                            {{ customer.first_name|default:customer.username }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ customer.username }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ customer.email }}
+
+                        </td>
+
+
+                        <td>
+
+                            {{ customer.order_count }}
+
+                        </td>
+
+
+                        <td>
+
+                            <a href="{% url 'admin_customer_orders' customer.id %}"
+                               class="view-btn">
+
+                                View Orders
+
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% empty %}
+
+
+                    <tr>
+
+                        <td colspan="5"
+                            class="empty-row">
+
+                            No customers found.
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+
+   
+
+  
+
+
+</main>
+
+
+</body>
+
+</html>

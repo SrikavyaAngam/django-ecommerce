@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Add Product</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f1eb;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #8b5e3c;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    font-size: 15px;
+}
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            background: #8b5e3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #6f472d;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #8b5e3c;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Add New Product</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <label>Product Name</label>
+        <input
+            type="text"
+            name="name"
+            placeholder="Enter product name"
+            required
+        >
+
+        <label>Description</label>
+        <textarea
+            name="description"
+            placeholder="Enter product description"
+            required
+        ></textarea>
+        <label for="category">Product Category</label>
+
+<select name="category" id="category" required>
+
+    <option value="">-- Select Category --</option>
+
+    <option value="mobile">Mobile Phones</option>
+    <option value="laptop">Laptops</option>
+    <option value="tablet">Tablets</option>
+    <option value="headphones">Headphones</option>
+    <option value="smartwatch">Smartwatches</option>
+    <option value="camera">Cameras</option>
+    <option value="television">Televisions</option>
+    <option value="speaker">Speakers</option>
+    <option value="computer_accessories">Computer Accessories</option>
+    <option value="gaming">Gaming Devices</option>
+
+</select>
+
+        <label>Price (₹)</label>
+        <input
+            type="number"
+            name="price"
+            step="0.01"
+            min="0"
+            placeholder="Enter price"
+            required
+        >
+
+        <label>Stock</label>
+        <input
+            type="number"
+            name="stock"
+            min="0"
+            placeholder="Enter stock quantity"
+            required
+        >
+
+        <label>Product Image</label>
+        <input
+            type="file"
+            name="image"
+            accept="image/*"
+        >
+
+        <button type="submit">
+            Add Product
+        </button>
+
+    </form>
+
+    <a href="{% url 'products' %}" class="back">
+        ← Back to Products
+    </a>
+
+</div>
+
+</body>
+</html>

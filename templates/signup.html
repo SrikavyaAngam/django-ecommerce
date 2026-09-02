@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Sign Up</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/signup.css' %}">
+
+</head>
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}"
+       class="logo">
+
+        🛒 E-Shop
+
+    </a>
+
+
+    <nav>
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'about' %}">
+            About
+        </a>
+
+        <a href="{% url 'login' %}">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="signup-page">
+
+
+    <div class="signup-left">
+
+        <span>
+            ✨ JOIN E-SHOP
+        </span>
+
+        <h1>
+            Create Your
+            <strong>Account</strong>
+        </h1>
+
+        <p>
+            Create your account to start
+            shopping and managing your orders.
+        </p>
+
+        <div class="signup-benefits">
+
+            <div>✓ Browse Products</div>
+
+            <div>✓ Add Items to Cart</div>
+
+            <div>✓ Place Orders</div>
+
+            <div>✓ Track Your Orders</div>
+
+        </div>
+
+    </div>
+
+
+    <form class="signup-box"
+          method="POST"
+          action="{% url 'signup' %}">
+
+        {% csrf_token %}
+
+
+        <div class="signup-icon">
+            👤
+        </div>
+
+        <h2>
+            Create Account
+        </h2>
+
+        <p>
+            Enter your details.
+        </p>
+
+
+</div>
+        <label>
+    First Name
+</label>
+
+<input
+    type="text"
+    name="first_name"
+    placeholder="First Name"
+    required
+>
+
+
+<label>
+    Username
+</label>
+
+<input
+    type="text"
+    name="username"
+    placeholder="Choose username"
+    required
+>
+
+
+<label>
+    Email
+</label>
+
+<input
+    type="email"
+    name="email"
+    placeholder="Enter email"
+    required
+>
+
+
+<label>
+    Phone
+</label>
+
+<input
+    type="tel"
+    name="phone"
+    placeholder="Enter phone number"
+>
+
+
+<label>
+    Password
+</label>
+
+<input
+    type="password"
+    name="password"
+    placeholder="Create password"
+    required
+>
+
+
+<label>
+    Confirm Password
+</label>
+
+<input
+    type="password"
+    name="confirm_password"
+    placeholder="Confirm password"
+    required
+>
+
+        <label class="terms">
+
+            <input type="checkbox"
+                   required>
+
+            I agree to the Terms & Conditions.
+
+        </label>
+
+
+        <button type="submit">
+            Create Account →
+        </button>
+
+
+        <p class="login-link">
+
+            Already have an account?
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+        </p>
+
+    </form>
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 E-Shop
+    </p>
+
+</footer>
+
+
+</body>
+</html>

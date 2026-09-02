@@ -1,0 +1,156 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | About</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/about.css' %}">
+
+</head>
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}"
+       class="logo">
+
+        🛒 E-Shop
+
+    </a>
+
+<nav>
+
+    <a href="{% url 'home' %}">
+        Home
+    </a>
+
+    {% if user.is_authenticated %}
+        {% if user.is_staff or user.is_superuser %}
+            <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        {% else %}
+            <a href="{% url 'dashboard' %}">Dashboard</a>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'login' %}">Dashboard</a>
+    {% endif %}
+
+    <a href="{% url 'about' %}" class="active">
+        About
+    </a>
+
+    <a href="{% url 'login' %}">
+        Login
+    </a>
+
+</nav>
+  
+
+</header>
+
+
+<main class="about-page">
+
+
+    <section class="about-hero">
+
+        <span>
+            ✨ ABOUT E-SHOP
+        </span>
+
+        <h1>
+            Simple Shopping,
+            <strong>Better Experience.</strong>
+        </h1>
+
+        <p>
+            E-Shop is an online shopping platform
+            designed to make product browsing,
+            cart management and ordering simple.
+        </p>
+
+    </section>
+
+
+  
+<div class="dashboard-features">
+
+    <div class="feature-card">
+
+        <div class="feature-icon">📦</div>
+
+        <h2>Browse Products</h2>
+
+        <p>
+            Customers can browse products available in the store.
+        </p>
+
+        <a href="{% url 'home' %}">
+            View Products
+        </a>
+
+    </div>
+
+
+    <div class="feature-card">
+
+        <div class="feature-icon">🛒</div>
+
+        <h2>Easy Cart</h2>
+
+        <p>
+            Add products to the shopping cart and manage selected items.
+        </p>
+
+        <a href="{% url 'cart' %}">
+            View Cart
+        </a>
+
+    </div>
+
+
+    <div class="feature-card">
+
+        <div class="feature-icon">📦</div>
+
+        <h2>Manage Orders</h2>
+
+        <p>
+            View your orders, track status, cancel or return eligible orders.
+        </p>
+
+        <a href="{% url 'orders' %}">
+            View Orders
+        </a>
+
+    </div>
+
+</div>
+
+    </section>
+
+
+</main>
+
+
+<footer>
+
+    <p>
+        © 2026 E-Shop | All Rights Reserved
+    </p>
+
+</footer>
+
+
+</body>
+</html>

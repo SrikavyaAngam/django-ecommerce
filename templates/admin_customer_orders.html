@@ -1,0 +1,374 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Orders | E-Shop Admin</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/admin_customer_orders.css' %}">
+
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        E-Shop Admin
+    </div>
+
+    <a href="{% url 'admin_dashboard' %}"
+       class="back-btn">
+        ← Back to Dashboard
+    </a>
+
+</header>
+
+
+<!-- =========================
+     MAIN CONTAINER
+========================= -->
+
+<div class="container">
+
+    <!-- PAGE TITLE -->
+
+    <div class="page-header">
+
+        <h1>Customer Orders</h1>
+
+        <p>
+            View all orders placed by this customer
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         CUSTOMER INFORMATION
+    ========================= -->
+
+    <div class="customer-card">
+
+        <div class="customer-icon">
+            {{ customer.first_name|first|upper }}
+        </div>
+
+        <div class="customer-details">
+
+            <h2>
+                {% if customer.first_name %}
+                    {{ customer.first_name }}
+                {% else %}
+                    {{ customer.username }}
+                {% endif %}
+            </h2>
+
+            <p>
+                <strong>Username:</strong>
+                {{ customer.username }}
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                {{ customer.email }}
+            </p>
+
+            <p>
+                <strong>Total Orders:</strong>
+                {{ orders.count }}
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ORDERS SECTION
+    ========================= -->
+
+    <div class="orders-section">
+
+        <div class="section-header">
+
+            <h2>Orders</h2>
+
+            <span class="order-count">
+                {{ orders.count }} Order{{ orders.count|pluralize }}
+            </span>
+
+        </div>
+
+
+        {% if orders %}
+
+            <!-- =========================
+                 ORDER CARDS
+            ========================= -->
+
+            {% for order in orders %}
+
+            <div class="order-card">
+
+                <!-- ORDER HEADER -->
+
+                <div class="order-top">
+
+                    <div>
+
+                        <h3>
+                            Order #{{ order.id }}
+                        </h3>
+
+                        <p class="order-date">
+                            Placed on
+                            {{ order.created_at|date:"d M Y, h:i A" }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="status">
+
+                        {{ order.status }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     ORDER INFORMATION
+                ========================= -->
+
+                <div class="order-info">
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Customer
+                        </span>
+
+                        <span class="value">
+                            {{ order.name }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Phone
+                        </span>
+
+                        <span class="value">
+                            {{ order.phone }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="label">
+                            Payment
+                        </span>
+
+                        <span class="value">
+                            {% if order.payment_method %}
+                                {{ order.payment_method|upper }}
+                            {% else %}
+                                COD
+                            {% endif %}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box total-box">
+
+                        <span class="label">
+                            Total Amount
+                        </span>
+
+                        <span class="value">
+                            ₹{{ order.total_amount }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     DELIVERY ADDRESS
+                ========================= -->
+
+                <div class="address-section">
+
+                    <h4>
+                        Delivery Address
+                    </h4>
+
+                    <p>
+
+                        {{ order.address }},
+
+                        {{ order.city }},
+
+                        {{ order.state }}
+
+                        -
+
+                        {{ order.pincode }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- =========================
+                     PRODUCT ITEMS
+                ========================= -->
+
+                {% if order.order_items.all %}
+
+                <div class="products-section">
+
+                    <h4>
+                        Ordered Products
+                    </h4>
+
+                    <div class="products-table">
+
+                        <div class="table-header">
+
+                            <span>Product</span>
+
+                            <span>Quantity</span>
+
+                            <span>Price</span>
+
+                            <span>Total</span>
+
+                        </div>
+
+
+                        {% for item in order.order_items.all %}
+
+                        <div class="table-row">
+
+                            <span class="product-name">
+
+                                {% if item.product.image %}
+
+                                    <img src="{{ item.product.image.url }}"
+                                         alt="{{ item.product.name }}">
+
+                                {% endif %}
+
+                                {{ item.product.name }}
+
+                            </span>
+
+
+                            <span>
+                                {{ item.quantity }}
+                            </span>
+
+
+                            <span>
+                                ₹{{ item.price }}
+                            </span>
+
+
+                            <span class="item-total">
+
+                                ₹{% widthratio item.price 1 item.quantity %}
+
+                            </span>
+
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                <!-- =========================
+                     ORDER TOTAL
+                ========================= -->
+
+                <div class="order-bottom">
+
+                    <span>
+                        Order Total
+                    </span>
+
+                    <strong>
+                        ₹{{ order.total_amount }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <!-- =========================
+                 NO ORDERS
+            ========================= -->
+
+            <div class="no-orders">
+
+                <div class="empty-icon">
+                    📦
+                </div>
+
+                <h2>
+                    No Orders Yet
+                </h2>
+
+                <p>
+                    This customer has not placed any orders yet.
+                </p>
+
+                <a href="{% url 'admin_dashboard' %}"
+                   class="back-dashboard">
+                    Back to Dashboard
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,250 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Admin Login</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/login.css' %}">
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}"
+       class="logo">
+
+        🛒 E-Shop
+
+    </a>
+
+
+    <nav>
+
+        <a href="{% url 'home' %}">
+            Home
+        </a>
+
+        <a href="{% url 'about' %}">
+            About
+        </a>
+
+        <a href="{% url 'login' %}">
+            Customer Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ================= ADMIN LOGIN ================= -->
+
+<main class="login-page">
+
+
+    <!-- LEFT SIDE -->
+
+    <div class="login-left">
+
+        <span>
+            🔐 ADMIN ACCESS
+        </span>
+
+
+        <h1>
+
+            Welcome to
+            <strong>E-Shop Admin</strong>
+
+        </h1>
+
+
+        <p>
+
+            Login to manage products,
+            orders and your E-Shop website.
+
+        </p>
+
+
+        <div class="benefits">
+
+            <div>
+                📦 Manage Products
+            </div>
+
+            <div>
+                🛒 Manage Orders
+            </div>
+
+            <div>
+                👥 Manage Customers
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ADMIN LOGIN FORM -->
+
+    <form class="login-box"
+          method="POST"
+          action="{% url 'admin_login' %}">
+
+        {% csrf_token %}
+
+
+        <div class="login-icon">
+            🔐
+        </div>
+
+
+        <h2>
+            Admin Login
+        </h2>
+
+
+        <p>
+            Enter your administrator credentials.
+        </p>
+
+
+
+        <!-- MESSAGES -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message {{ message.tags }}">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+
+        <!-- USERNAME -->
+
+        <label for="username">
+
+            Username
+
+        </label>
+
+
+        <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter admin username"
+            required
+        >
+
+
+
+        <!-- PASSWORD -->
+
+        <label for="password">
+
+            Password
+
+        </label>
+
+
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter admin password"
+            required
+        >
+
+
+
+        <!-- LOGIN BUTTON -->
+
+        <button type="submit">
+
+            Admin Login →
+
+        </button>
+
+
+
+        <div class="divider">
+            OR
+        </div>
+
+
+
+        <!-- CUSTOMER LOGIN -->
+
+        <p class="signup-text">
+
+            Are you a customer?
+
+            <a href="{% url 'login' %}">
+
+                Customer Login
+
+            </a>
+
+        </p>
+
+
+
+        <!-- HOME -->
+
+        <p class="signup-text">
+
+            <a href="{% url 'home' %}">
+
+                ← Back to Home
+
+            </a>
+
+        </p>
+
+
+    </form>
+
+</main>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 E-Shop | Admin Portal
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

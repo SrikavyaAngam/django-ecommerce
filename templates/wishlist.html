@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Wishlist</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/wishlist.css' %}">
+
+</head>
+
+
+<body>
+
+
+<header class="wishlist-header">
+
+    <a href="{% url 'home' %}">
+        🛒 E-Shop
+    </a>
+
+
+    <a href="{% url 'home' %}">
+        ← Continue Shopping
+    </a>
+
+</header>
+
+
+<section class="wishlist-section">
+
+    <h1>❤️ My Wishlist</h1>
+
+    <p>Your favourite electronic products</p>
+
+
+    {% if products %}
+
+    <div class="wishlist-products">
+
+
+        {% for product in products %}
+
+        <div class="wishlist-card">
+
+
+            <a href="{% url 'remove_from_wishlist' product.id %}"
+               class="remove-heart">
+
+                ❤️
+
+            </a>
+
+
+            {% if product.image %}
+
+            <div class="wishlist-image">
+
+                <img src="{{ product.image.url }}"
+                     alt="{{ product.name }}">
+
+            </div>
+
+            {% endif %}
+
+
+            <div class="wishlist-info">
+
+                <h3>
+                    {{ product.name }}
+                </h3>
+
+
+                <p class="wishlist-price">
+
+                    ₹{{ product.price }}
+
+                </p>
+
+
+                {% if product.stock > 0 %}
+
+                <form action="{% url 'add_to_cart' product.id %}"
+                      method="POST">
+
+                    {% csrf_token %}
+
+                    <button type="submit">
+
+                        🛒 Add to Cart
+
+                    </button>
+
+                </form>
+
+                {% else %}
+
+                <p class="out-stock">
+
+                    Out of Stock
+
+                </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+    </div>
+
+
+    {% else %}
+
+    <div class="empty-wishlist">
+
+        <div>♡</div>
+
+        <h2>Your Wishlist is Empty</h2>
+
+        <p>
+            Save your favourite products here.
+        </p>
+
+        <a href="{% url 'home' %}">
+
+            Explore Products
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+
+</section>
+
+
+</body>
+
+</html>

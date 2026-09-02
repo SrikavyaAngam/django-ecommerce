@@ -1,0 +1,113 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Sales Report | E-Shop</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/admin_extra.css' %}">
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <h1>📊 Sales Report</h1>
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <h3>Total Sales</h3>
+
+            <h2>
+                ₹{{ total_sales }}
+            </h2>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Total Orders</h3>
+
+            <h2>
+                {{ total_orders }}
+            </h2>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <h3>Total Customers</h3>
+
+            <h2>
+                {{ total_customers }}
+            </h2>
+
+        </div>
+
+    </div>
+
+
+    <h2>Recent Orders</h2>
+
+
+    <table>
+
+        <tr>
+
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Date</th>
+
+        </tr>
+
+
+        {% for order in orders %}
+
+        <tr>
+
+            <td>
+                #{{ order.id }}
+            </td>
+
+            <td>
+                {{ order.name }}
+            </td>
+
+            <td>
+                {{ order.email }}
+            </td>
+
+            <td>
+                ₹{{ order.total_amount }}
+            </td>
+
+            <td>
+                {{ order.status }}
+            </td>
+
+            <td>
+                {{ order.created_at|date:"d M Y" }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

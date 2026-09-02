@@ -1,0 +1,215 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Products</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/home.css' %}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}" class="logo">
+        🛒 E-Shop
+    </a>
+
+    <div class="nav-links">
+
+        <a href="{% url 'add_product' %}">
+            Add Product
+        </a>
+
+        <a href="{% url 'cart' %}">
+            🛒 Cart
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- SEARCH AND FILTER -->
+
+<section class="search-section">
+
+    <form method="GET"
+          action="{% url 'products' %}">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search electronic devices..."
+            value="{{ search_query }}"
+        >
+
+
+        <select name="category">
+
+            <option value="">
+                All Electronic Devices
+            </option>
+
+
+            <option value="mobile"
+                {% if selected_category == "mobile" %}
+                    selected
+                {% endif %}>
+                Mobile Phones
+            </option>
+
+
+            <option value="laptop"
+                {% if selected_category == "laptop" %}
+                    selected
+                {% endif %}>
+                Laptops
+            </option>
+
+
+            <option value="tablet"
+                {% if selected_category == "tablet" %}
+                    selected
+                {% endif %}>
+                Tablets
+            </option>
+
+
+            <option value="headphones"
+                {% if selected_category == "headphones" %}
+                    selected
+                {% endif %}>
+                Headphones
+            </option>
+
+
+            <option value="smartwatch"
+                {% if selected_category == "smartwatch" %}
+                    selected
+                {% endif %}>
+                Smartwatches
+            </option>
+
+
+            <option value="camera"
+                {% if selected_category == "camera" %}
+                    selected
+                {% endif %}>
+                Cameras
+            </option>
+
+
+            <option value="television"
+                {% if selected_category == "television" %}
+                    selected
+                {% endif %}>
+                Televisions
+            </option>
+
+
+            <option value="speaker"
+                {% if selected_category == "speaker" %}
+                    selected
+                {% endif %}>
+                Speakers
+            </option>
+
+
+            <option value="computer_accessories"
+                {% if selected_category == "computer_accessories" %}
+                    selected
+                {% endif %}>
+                Computer Accessories
+            </option>
+
+
+            <option value="gaming"
+                {% if selected_category == "gaming" %}
+                    selected
+                {% endif %}>
+                Gaming Devices
+            </option>
+
+        </select>
+
+
+        <button type="submit">
+            Search
+        </button>
+
+
+        <a href="{% url 'products' %}">
+            Clear
+        </a>
+
+    </form>
+
+</section>
+
+
+
+<!-- PRODUCTS -->
+<div class="product-card">
+
+    <a href="#" class="wishlist-btn">❤</a>
+
+    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+
+    <div class="product-info">
+
+        <h3>{{ product.name }}</h3>
+
+        <p class="price">₹{{ product.price }}</p>
+
+        <p>{{ product.description|truncatewords:10 }}</p>
+
+        <div class="product-actions">
+
+            <a href="{% url 'add_to_cart' product.id %}" class="cart-btn">
+                🛒
+            </a>
+
+            <span class="stock-badge">
+                In Stock
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+        </div>
+
+    {% empty %}
+
+        <div class="no-products">
+            <h3>No products available</h3>
+            <p>Try another search or category.</p>
+        </div>
+
+    {% endfor %}
+
+</div>
+    
+</section>
+
+
+</body>
+
+</html>

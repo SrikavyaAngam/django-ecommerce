@@ -1,0 +1,98 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Low Stock | E-Shop</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/admin_extra.css' %}">
+
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <h1>📦 Low Stock Products</h1>
+
+    <p>
+        Products with 5 or fewer items remaining.
+    </p>
+
+    {% if products %}
+
+    <table>
+
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+        </tr>
+
+        {% for product in products %}
+
+        <tr>
+
+            <td>
+
+                {% if product.image %}
+
+                <img
+                    src="{{ product.image.url }}"
+                    width="60"
+                    height="60"
+                    style="object-fit:contain;"
+                >
+
+                {% endif %}
+
+            </td>
+
+            <td>
+                {{ product.name }}
+            </td>
+
+            <td>
+                {{ product.category }}
+            </td>
+
+            <td>
+                ₹{{ product.price }}
+            </td>
+
+            <td>
+
+                <span class="low-stock">
+
+                    {{ product.stock }}
+
+                </span>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <div class="empty">
+
+        🎉 All products have sufficient stock!
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

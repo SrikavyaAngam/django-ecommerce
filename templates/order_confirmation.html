@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Order Confirmation</title>
+
+</head>
+
+
+<body style="
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    background:#f4f6f8;
+">
+
+
+<div style="
+    max-width:700px;
+    margin:30px auto;
+    background:#ffffff;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+">
+
+
+    <!-- HEADER -->
+
+    <div style="
+        background:#2563eb;
+        color:white;
+        text-align:center;
+        padding:30px;
+    ">
+
+        <h1 style="
+            margin:0;
+            font-size:28px;
+        ">
+            E-Shop
+        </h1>
+
+        <p style="
+            margin-top:10px;
+            font-size:16px;
+        ">
+            Order Confirmation
+        </p>
+
+    </div>
+
+
+    <!-- CONTENT -->
+
+    <div style="
+        padding:30px;
+    ">
+
+        <h2>
+            Hello {{ order.name }} 👋
+        </h2>
+
+
+        <p style="
+            font-size:16px;
+            color:#444;
+        ">
+
+            Thank you for shopping with us!
+
+            Your order has been successfully placed.
+
+        </p>
+
+
+        <!-- ORDER INFORMATION -->
+
+        <div style="
+            background:#f8fafc;
+            padding:20px;
+            border-radius:8px;
+            margin-top:20px;
+        ">
+
+            <h3>
+                Order Information
+            </h3>
+
+
+            <p>
+
+                <strong>Order ID:</strong>
+
+                #{{ order.id }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Order Date:</strong>
+
+                {{ order.created_at|date:"d M Y, h:i A" }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Order Status:</strong>
+
+                {{ order.status }}
+
+            </p>
+
+        </div>
+
+
+        <!-- PRODUCTS -->
+
+        <h2 style="
+            margin-top:30px;
+        ">
+            Your Products
+        </h2>
+
+
+        {% for item in order_items %}
+
+
+        <div style="
+            border:1px solid #e5e7eb;
+            border-radius:10px;
+            padding:15px;
+            margin-bottom:15px;
+        ">
+
+
+            <!-- PRODUCT IMAGE -->
+
+            {% if item.product.image %}
+
+            <img
+
+                src="cid:product_image_{{ item.id }}"
+
+                alt="{{ item.product.name }}"
+
+                width="150"
+
+                style="
+                    display:block;
+                    width:150px;
+                    height:150px;
+                    object-fit:contain;
+                    margin-bottom:15px;
+                "
+
+            >
+
+            {% endif %}
+
+
+            <!-- PRODUCT DETAILS -->
+
+            <h3 style="
+                margin:5px 0;
+            ">
+
+                {{ item.product.name }}
+
+            </h3>
+
+
+            <p>
+
+                <strong>Quantity:</strong>
+
+                {{ item.quantity }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Price:</strong>
+
+                ₹{{ item.price }}
+
+            </p>
+
+
+            <p>
+
+                <strong>Total:</strong>
+
+                ₹{{ item.price|floatformat:2 }}
+
+            </p>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+        <!-- TOTAL -->
+
+        <div style="
+            margin-top:25px;
+            background:#eff6ff;
+            padding:20px;
+            border-radius:10px;
+            text-align:right;
+        ">
+
+            <h2 style="
+                margin:0;
+                color:#2563eb;
+            ">
+
+                Total Amount: ₹{{ order.total_amount }}
+
+            </h2>
+
+        </div>
+
+
+        <!-- DELIVERY ADDRESS -->
+
+        <div style="
+            margin-top:30px;
+        ">
+
+            <h3>
+                Delivery Address
+            </h3>
+
+
+            <p style="
+                line-height:1.7;
+                color:#555;
+            ">
+
+                {{ order.name }}<br>
+
+                {{ order.address }}<br>
+
+                {{ order.city }}<br>
+
+                {{ order.state }} -
+                {{ order.pincode }}<br>
+
+                Phone:
+                {{ order.phone }}
+
+            </p>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <hr style="
+            border:none;
+            border-top:1px solid #ddd;
+            margin-top:30px;
+        ">
+
+
+        <p style="
+            text-align:center;
+            color:#777;
+        ">
+
+            Thank you for shopping with E-Shop ❤️
+
+        </p>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

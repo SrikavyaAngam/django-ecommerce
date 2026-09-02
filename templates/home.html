@@ -1,0 +1,885 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>E-Shop | Home</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/home.css' %}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
+<header class="navbar">
+
+    <a href="{% url 'home' %}" class="logo">
+        🛒 <span>E-Shop</span>
+    </a>
+
+
+    <nav>
+
+        <a href="{% url 'home' %}" class="active">
+            Home
+        </a>
+
+
+        <a href="{% url 'about' %}">
+            About
+        </a>
+
+
+        {% if user.is_authenticated %}
+
+            {% if user.is_staff %}
+
+                <a href="{% url 'admin_dashboard' %}">
+                    Dashboard
+                </a>
+
+                <a href="{% url 'logout' %}" class="logout">
+                    ↪ Logout
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'dashboard' %}">
+                    Dashboard
+                </a>
+
+
+                <a href="{% url 'logout' %}" class="logout">
+                    ↪ Logout
+                </a>
+
+            {% endif %}
+
+
+        {% else %}
+
+            <a href="{% url 'login' %}">
+                Login
+            </a>
+
+            <a href="{% url 'signup' %}" class="signup">
+                Sign Up
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+</header>
+
+
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero">
+
+
+    <!-- FLOATING ELECTRONIC PRODUCTS -->
+
+    <div class="hero-products">
+
+
+        <!-- EARBUDS -->
+
+        <div class="hero-device device-2">
+
+            <img
+                src="https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?auto=format&fit=crop&w=500&q=90"
+                alt="Wireless Earbuds"
+            >
+
+        </div>
+
+
+        <!-- LAPTOP -->
+
+        <div class="hero-device device-3">
+
+            <img
+                src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=700&q=90"
+                alt="Laptop"
+            >
+
+        </div>
+
+
+        <!-- CAMERA -->
+
+        <div class="hero-device device-4">
+
+            <img
+                src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=90"
+                alt="Camera"
+            >
+
+        </div>
+
+
+        <!-- HEADPHONES -->
+
+        <div class="hero-device device-5">
+
+            <img
+                src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=90"
+                alt="Headphones"
+            >
+
+        </div>
+
+
+        <!-- SMART WATCH -->
+
+        <div class="hero-device device-6">
+
+            <img
+                src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=500&q=90"
+                alt="Smart Watch"
+            >
+
+        </div>
+
+
+        <!-- MONITOR -->
+
+        <div class="hero-device device-7">
+
+            <img
+                src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=700&q=90"
+                alt="Computer Monitor"
+            >
+
+        </div>
+
+
+        <!-- SMARTPHONE -->
+
+        <div class="hero-device device-smartphone">
+
+            <img
+                src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=90"
+                alt="Smartphone"
+            >
+
+        </div>
+
+
+        <!-- GAMING CONTROLLER -->
+
+        <div class="hero-device device-8">
+
+            <img
+                src="https://images.unsplash.com/photo-1603481546238-487240415921?auto=format&fit=crop&w=500&q=90"
+                alt="Gaming Controller"
+            >
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         SEARCH BOX
+    ====================================== -->
+
+    <div class="search-box">
+
+
+        <div class="search-text">
+
+            <div class="search-icon">
+                🔍
+            </div>
+
+
+            <div>
+
+                <h2>
+                    Find Your Product
+                </h2>
+
+            </div>
+
+        </div>
+
+
+
+        <form
+            method="GET"
+            action="{% url 'home' %}"
+            class="search-form"
+            id="searchForm"
+        >
+
+
+            <!-- SEARCH INPUT -->
+
+            <div class="search-input">
+
+                <span>
+                    🔍
+                </span>
+
+
+                <input
+                    type="text"
+                    id="productSearch"
+                    name="search"
+                    value="{{ search_query }}"
+                    placeholder="Search electronic devices..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <!-- CATEGORY -->
+
+            <select
+                name="category"
+                id="categoryFilter"
+            >
+
+                <option value="">
+                    All Categories
+                </option>
+
+
+                <option
+                    value="mobile"
+                    {% if selected_category == "mobile" %}
+                        selected
+                    {% endif %}
+                >
+                    Mobile Phones
+                </option>
+
+
+                <option
+                    value="laptop"
+                    {% if selected_category == "laptop" %}
+                        selected
+                    {% endif %}
+                >
+                    Laptops
+                </option>
+
+
+                <option
+                    value="tablet"
+                    {% if selected_category == "tablet" %}
+                        selected
+                    {% endif %}
+                >
+                    Tablets
+                </option>
+
+
+                <option
+                    value="headphones"
+                    {% if selected_category == "headphones" %}
+                        selected
+                    {% endif %}
+                >
+                    Headphones
+                </option>
+
+
+                <option
+                    value="smartwatch"
+                    {% if selected_category == "smartwatch" %}
+                        selected
+                    {% endif %}
+                >
+                    Smartwatches
+                </option>
+
+
+                <option
+                    value="camera"
+                    {% if selected_category == "camera" %}
+                        selected
+                    {% endif %}
+                >
+                    Cameras
+                </option>
+
+
+                <option
+                    value="television"
+                    {% if selected_category == "television" %}
+                        selected
+                    {% endif %}
+                >
+                    Televisions
+                </option>
+
+
+                <option
+                    value="speaker"
+                    {% if selected_category == "speaker" %}
+                        selected
+                    {% endif %}
+                >
+                    Speakers
+                </option>
+
+
+                <option
+                    value="computer_accessories"
+                    {% if selected_category == "computer_accessories" %}
+                        selected
+                    {% endif %}
+                >
+                    Computer Accessories
+                </option>
+
+
+                <option
+                    value="gaming"
+                    {% if selected_category == "gaming" %}
+                        selected
+                    {% endif %}
+                >
+                    Gaming Devices
+                </option>
+
+
+            </select>
+
+
+
+            
+
+
+
+            <!-- CLEAR -->
+
+            <a
+                href="{% url 'home' %}"
+                class="clear-btn"
+            >
+                ↻ Clear
+            </a>
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         HERO CONTENT
+    ====================================== -->
+
+    <div class="hero-content">
+
+
+        <span class="welcome">
+            WELCOME TO E-SHOP
+        </span>
+
+
+        <h1>
+
+            Shop Smart.
+
+            <strong>
+                Live Better.
+            </strong>
+
+        </h1>
+
+
+        <p>
+
+            Explore the latest electronic devices from top brands.
+
+            <br>
+
+            Best quality, best price, and easy shopping experience.
+
+        </p>
+
+
+        <a
+            href="#products"
+            class="explore-btn"
+        >
+
+            Explore Products
+
+            <span>
+                →
+            </span>
+
+        </a>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     PRODUCTS
+========================================= -->
+
+<section
+    class="products-section"
+    id="products"
+>
+
+
+    <div class="section-heading">
+
+
+        <div class="small-heading">
+
+            <span></span>
+
+            OUR PRODUCTS
+
+            <span></span>
+
+        </div>
+
+
+        <h2>
+            Explore Electronic Products
+        </h2>
+
+
+        <p>
+            Discover top quality electronics at the best prices.
+        </p>
+
+
+    </div>
+
+
+
+    <div class="products-container">
+
+
+        {% for product in products %}
+
+
+        <div
+            class="product-card"
+            data-name="{{ product.name|lower }}"
+            data-category="{{ product.category|lower }}"
+        >
+
+
+            <!-- PRODUCT TOP -->
+
+            <div class="product-top">
+
+
+                <a
+                    href="{% url 'toggle_wishlist' product.id %}"
+                    class="wishlist-btn"
+                >
+
+                    {% if product.id in wishlist_ids %}
+
+                        ❤️
+
+                    {% else %}
+
+                        ♡
+
+                    {% endif %}
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- PRODUCT IMAGE -->
+
+            <div class="product-image">
+
+
+                {% if product.image %}
+
+                    <img
+                        src="{{ product.image.url }}"
+                        alt="{{ product.name }}"
+                    >
+
+                {% else %}
+
+                    <div class="no-image">
+                        📱
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+
+            <!-- PRODUCT DETAILS -->
+
+            <div class="product-info">
+
+
+                <h3>
+                    {{ product.name }}
+                </h3>
+
+
+                <span class="category-badge">
+
+                    {{ product.get_category_display }}
+
+                </span>
+
+
+                <p class="price">
+
+                    ₹{{ product.price }}
+
+                </p>
+
+
+
+                {% if product.stock > 0 %}
+
+                    <p class="stock in-stock">
+
+                        ● In Stock
+
+                    </p>
+
+                {% else %}
+
+                    <p class="stock out-stock">
+
+                        ● Out of Stock
+
+                    </p>
+
+                {% endif %}
+
+
+
+                <!-- PRODUCT BUTTONS -->
+
+                <div class="product-buttons">
+
+
+                    {% if product.stock > 0 %}
+
+
+                    <form
+                        action="{% url 'add_to_cart' product.id %}"
+                        method="POST"
+                        class="add-to-cart-form"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <button
+                            type="submit"
+                            class="add-cart-btn"
+                        >
+
+                            🛒 Add to Cart
+
+                        </button>
+
+
+                    </form>
+
+
+                    {% else %}
+
+
+                    <button
+                        class="disabled-cart-btn"
+                        disabled
+                    >
+
+                        Out of Stock
+
+                    </button>
+
+
+                    {% endif %}
+
+
+
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        {% empty %}
+
+
+        <div class="no-products">
+
+            <div>
+                🔍
+            </div>
+
+
+            <h3>
+                No Products Found
+            </h3>
+
+
+            <p>
+                Try another product name or category.
+            </p>
+
+
+            <a href="{% url 'home' %}">
+
+                View All Products
+
+            </a>
+
+
+        </div>
+
+
+        {% endfor %}
+
+
+    </div>
+
+
+
+    <!-- NO RESULTS FOR LIVE SEARCH -->
+
+    <div
+        id="liveNoResults"
+        class="no-products"
+        style="display:none;"
+    >
+
+        <div>
+            🔍
+        </div>
+
+        <h3>
+            No Products Found
+        </h3>
+
+        <p>
+            Try another product name.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+
+    <h3>
+        🛒 E-Shop
+    </h3>
+
+
+    <p>
+        Your destination for the latest electronic devices.
+    </p>
+
+
+    <div class="footer-line"></div>
+
+
+    <small>
+        © 2026 E-Shop | All Rights Reserved
+    </small>
+
+
+</footer>
+
+
+
+<!-- =========================================
+     LIVE SEARCH SCRIPT
+========================================= -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchInput =
+        document.getElementById("productSearch");
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
+
+    const productCards =
+        document.querySelectorAll(".product-card");
+
+    const noResults =
+        document.getElementById("liveNoResults");
+
+    const productsSection =
+        document.getElementById("products");
+
+
+    function filterProducts() {
+
+        const searchValue =
+            searchInput.value
+            .toLowerCase()
+            .trim();
+
+        const selectedCategory =
+            categoryFilter.value
+            .toLowerCase();
+
+
+        let visibleProducts = 0;
+
+
+        productCards.forEach(function (card) {
+
+            const productName =
+                card.dataset.name || "";
+
+            const productCategory =
+                card.dataset.category || "";
+
+
+            // Product name starts with typed letter/text
+            const matchesSearch =
+                searchValue === "" ||
+                productName.startsWith(searchValue);
+
+
+            // Category filter
+            const matchesCategory =
+                selectedCategory === "" ||
+                productCategory === selectedCategory;
+
+
+            if (matchesSearch && matchesCategory) {
+
+                card.style.display = "";
+
+                visibleProducts++;
+
+            } else {
+
+                card.style.display = "none";
+
+            }
+
+        });
+
+
+        if (visibleProducts === 0 && searchValue !== "") {
+
+            noResults.style.display = "block";
+
+        } else {
+
+            noResults.style.display = "none";
+
+        }
+
+    }
+
+
+    /* ===============================
+       LIVE SEARCH + AUTO SCROLL
+    =============================== */
+
+    searchInput.addEventListener("input", function () {
+
+        filterProducts();
+
+
+        // Scroll to products when user starts typing
+        if (this.value.trim() !== "") {
+
+            productsSection.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        }
+
+    });
+
+
+    /* CATEGORY FILTER */
+
+    categoryFilter.addEventListener("change", function () {
+
+        filterProducts();
+
+
+        productsSection.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+        });
+
+    });
+
+
+});
+
+</script>
+
+</body>
+
+</html>
